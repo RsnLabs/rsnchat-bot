@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
 const axios = require('axios');
 const log = require('../utils/logger');
-const RsnChat = require('rsnchat');
+const { RsnChat } = require('rsnchat');
 const dotenv = require("dotenv")
 dotenv.config();
 
@@ -40,7 +40,7 @@ module.exports = {
 
       for (let i = 0; i < amount; i++) {
         const response = await rsnchat.dalle(prompt);
-        const image = response.image;
+        const image = response.image.base64;
         const imageBuffer = Buffer.from(image, 'base64');
         const attachment = new AttachmentBuilder(imageBuffer, { name: `image_${i + 1}.png` });
         attachments.push(attachment);
